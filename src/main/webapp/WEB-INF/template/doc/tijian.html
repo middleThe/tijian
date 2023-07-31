@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--<![endif]-->
+<!-- Begin Head -->
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+<head>
+    <title>体检预约管理系统-doc-体检记录页</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="MobileOptimized" content="320">
+    <!--Start Style -->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/fonts.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/icofont.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+    <link rel="stylesheet" id="theme-change" type="text/css" href="">
+    <style>
+        .buttonbecolor:hover {
+            color: var(--primary);
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="loader">
+    <div class="spinner">
+        <img th:src="@{/static/picture/loader.gif}" alt="">
+    </div>
+</div>
+<!-- Main Body -->
+<div class="page-wrapper">
+
+    <div th:replace="template.html::title"></div>
+    <div th:replace="template.html::aside"></div>
+    <!-- Container Start -->
+    <div class="page-wrapper">
+        <div class="main-content">
+            <!-- Page Title Start -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="page-title-wrapper">
+                        <div class="page-title-box">
+                            <h4 class="page-title">体检记录与评语</h4>
+                        </div>
+                        <div class="breadcrumb-list">
+                            <ul>
+                                <li class="breadcrumb-link">
+                                    <a th:href="@{/page/doc/jiLuAndCM}"><i class="fas fa-home mr-2"></i>返回</a>
+                                </li>
+                                <li class="breadcrumb-link active">记录</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- From Start -->
+            <div class="from-wrapper">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 style="padding-bottom: 5px;">订单信息</h4>
+                                <p class="card-desc">这里是用户 <code th:text="${userInfo.getRealname()}">张三</code>
+                                    此订单信息</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="form-group">
+                                        <label class="col-form-label">订单号</label>
+                                        <input class="form-control" type="text" disabled style="border: none"
+                                               th:value="${preInfo.getPrenumber()}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">套餐名称</label>
+                                        <input class="form-control" type="text" disabled style="border: none"
+                                               th:value="${goodsName}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">预约时间</label>
+                                        <input class="form-control" type="text" disabled style="border: none"
+                                               th:value="${preTime}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 style="padding-bottom: 5px;">用户信息</h4>
+                                <p class="card-desc">这里是用户 <code th:text="${userInfo.getRealname()}"></code> 的基本信息
+                                </p>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="form-group row">
+                                            <label class="col-md-2 col-form-label"
+                                                   style="line-height: 38px;">真实姓名</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" type="text" style="border: none" disabled
+                                                       th:value="${userInfo.getRealname()}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 col-form-label"
+                                                   style="line-height: 38px;">Email</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" type="text" style="border: none" disabled
+                                                       th:value="${userInfo.getEmail}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 col-form-label"
+                                                   style="line-height: 38px;">生日</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" type="text" style="border: none" disabled
+                                                       th:value="${birthday}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 col-form-label"
+                                                   style="line-height: 38px;">性别</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" type="text" style="border: none" disabled
+                                                       th:value="${userInfo.getGender()}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 col-form-label"
+                                                   style="line-height: 38px;">手机号</label>
+                                            <div class="col-md-10">
+                                                <input class="form-control" type="text" style="border: none" disabled
+                                                       th:value="${userInfo.getPhone()}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 style="padding-bottom: 5px;">记录与评语</h4>
+                                <p class="card-desc">这里将撰写用户 <code
+                                        th:text="${userInfo.getRealname()}">张三</code> 的体检信息</p>
+                            </div>
+                            <div class="card-body">
+                                <form class="separate-form" id="jiLuAndComment" method="post">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="row">
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">开始时间</label>
+                                                    <input class="form-control" type="text" style="border: none"
+                                                           disabled th:value="${startTime}==null?'暂无':${startTime}">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label class="col-form-label">结束时间</label>
+                                                    <input class="form-control" type="text" disabled
+                                                           style="border: none"
+                                                           th:value="${endTime}==null?'暂无':${endTime}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="mt-4 mb-4">
+                                        <h5 class="from-title mb-1" style="padding-bottom: 5px;">撰写</h5>
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="jiLU" class="col-form-label">记录</label>
+                                                    <textarea class="form-control" style="height: 200px;" id="jiLU"
+                                                              name="jiLU" th:text="${preInfo.getJilu()}"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="comment" class="col-form-label">评语</label>
+                                                    <textarea class="form-control" style="height: 200px;" id="comment"
+                                                              name="comment"
+                                                              th:text="${preInfo.getComment()}"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="text" th:name="${_csrf.getParameterName()}"
+                                               th:value="${_csrf.token}" hidden>
+                                        <input hidden="hidden" th:value="${preInfo.getPid()}" type="text" name="pid">
+                                        <input hidden="hidden" th:value="${preInfo.getUid()}" type="text" name="uid">
+                                        <div class="form-group mb-0">
+                                            <button class="btn btn-primary" type="button" onclick="secondStore()">暂存
+                                            </button>
+                                            <input class="btn btn-light" type="button" value="结束"
+                                                   onclick="endingTiJian()">
+                                            <input class="btn btn-danger" type="button" value="提交"
+                                                   onclick="submitAndStore()">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-footer-btm">
+                <p>Copyright © 2021.Company name All rights reserved.<a target="_blank"
+                                                                        href="https://sc.chinaz.com/moban/">网页模板</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    let message = [[${message}]];
+    $(function showMessage() {
+        if (message != null) {
+            alert(message)
+        }
+    })
+</script>
+
+<script !src="">
+    function secondStore() {
+        const form = document.getElementById("jiLuAndComment")
+        form.action = "/api/doc/secondStore";
+        form.submit();
+    }
+
+    function endingTiJian() {
+        const form = document.getElementById("jiLuAndComment")
+        if (confirm("是否确认结束体检？ps:将会设置体检结束时间") === true) {
+            form.action = "/api/doc/endingTiJian";
+            form.submit();
+        }
+    }
+
+    function submitAndStore() {
+        const form = document.getElementById("jiLuAndComment")
+        if (confirm("是否确认提交体检？") === true) {
+            form.action = "/api/doc/submitAndStore";
+            form.submit();
+        }
+    }
+</script>
+
+
+<!-- Script Start -->
+<script th:src="@{/static/js/jquery.min.js}"></script>
+<script th:src="@{/static/js/popper.min.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/swiper.min.js}"></script>
+<script th:src="@{/static/js/apexcharts.min.js}"></script>
+<script th:src="@{/static/js/control-chart-apexcharts.js}"></script>
+<!-- Page Specific -->
+<script th:src="@{/static/js/nice-select.min.js}"></script>
+<!-- Custom Script -->
+<script th:src="@{/static/js/custom.js}"></script>
+</body>
+
+</html>

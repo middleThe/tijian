@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--<![endif]-->
+<!-- Begin Head -->
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+
+<head>
+    <title>体检预约管理系统-admin-医生信息修改</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="MobileOptimized" content="320">
+    <!--Start Style -->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/fonts.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/icofont.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+    <link rel="stylesheet" id="theme-change" type="text/css" href="">
+    <style>
+        .sss {
+            width: 100%;
+            height: 50px;
+            border: 1px solid var(--border-color);
+            color: var(--main-title-color);
+            border-radius: 5px;
+            padding: 0 20px 0 50px;
+            margin-bottom: 0;
+        }
+
+        .buttonbecolor:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+<div class="loader">
+    <div class="spinner">
+        <img th:src="@{/static/picture/loader.gif}" alt="">
+    </div>
+</div>
+<!-- Main Body -->
+<div class="page-wrapper">
+
+    <div th:replace="template.html::title"></div>
+    <div th:replace="template.html::aside"></div>
+    <!-- Container Start -->
+    <div class="page-wrapper">
+        <div class="main-content">
+            <!-- Page Title Start -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="page-title-wrapper">
+                        <div class="page-title-box">
+                            <h4 class="page-title">医生信息修改</h4>
+                        </div>
+                        <div class="breadcrumb-list">
+                            <ul>
+                                <li class="breadcrumb-link">
+                                    <a href="/page/admin/docInfo"><i class="fas fa-home mr-2"></i>医生信息管理</a>
+                                </li>
+                                <li class="breadcrumb-link active">信息修改</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- From Start -->
+            <div class="from-wrapper">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>信息总览</h4>
+                                <p class="card-desc">填写要修改的信息</p>
+                            </div>
+                            <div class="card-body">
+                                <form class="separate-form" id="docInfoModify" method="post">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <h5 class="from-title mb-1">字段:</h5>
+                                        <div class="row">
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="did" class="col-form-label">工号</label>
+                                                    <input class="form-control" type="text" id="did" name="did" readonly
+                                                           style="border: 0" th:value="${doctorInfo.getDid()}">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="username" class="col-form-label">登录用户名</label>
+                                                    <input class="form-control" type="text" id="username" readonly
+                                                           style="border: 0" th:value="${username}">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="realname" class="col-form-label">真实姓名</label>
+                                                    <input class="form-control" type="text" id="realname"
+                                                           name="realname" th:value="${doctorInfo.getRealname()}">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="age" class="col-form-label">年龄</label>
+                                                    <input class="form-control" type="number" id="age" name="age"
+                                                           th:value="${doctorInfo.getAge()}" min="1" max="120">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="gender" class="col-form-label">性别</label>
+                                                    <input id="gender1" th:value="${doctorInfo.getGender()}"
+                                                           hidden="hidden" disabled>
+                                                    <select class="sss" name="gender" id="gender">
+                                                        <option value="男">男</option>
+                                                        <option value="女">女</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="saveage" class="col-form-label">医龄</label>
+                                                    <input class="form-control" type="number" id="saveage"
+                                                           name="saveage" th:value="${doctorInfo.getSaveage()}" min="0"
+                                                           max="100">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="phone" class="col-form-label">联系方式</label>
+                                                    <input class="form-control" type="text" id="phone" name="phone"
+                                                           th:value="${doctorInfo.getPhone()}">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="title" class="col-form-label">职称</label>
+                                                    <input disabled hidden="hidden" th:value="${doctorInfo.getTitle()}"
+                                                           id="title1">
+                                                    <select class="sss" name="title" id="title">
+                                                        <option value="医士">医士</option>
+                                                        <option value="医师">医师</option>
+                                                        <option value="主治医师">主治医师</option>
+                                                        <option value="副主任医师">副主任医师</option>
+                                                        <option value="主任医师">主任医师</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-0">
+                                            <input class="btn btn-danger" type="button" onclick="toDocInfoModify()"
+                                                   value="提交">
+                                        </div>
+                                    </div>
+                                    <input type="text" th:name="${_csrf.getParameterName()}" th:value="${_csrf.token}"
+                                           hidden>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="ad-footer-btm">
+                <p>Copyright © 2021.Company name All rights reserved.<a target="_blank"
+                                                                        href="https://sc.chinaz.com/moban/">网页模板</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    //下拉菜单默认选择
+    $(function () {
+        const title = document.getElementById("title")
+        const ti = document.getElementById("title1").value
+        const gender = document.getElementById("gender")
+        const ge = document.getElementById("gender1").value
+        //职称默认选中
+        for (let i = 0; i < title.length; i++) {
+            if (title.options[i].text === ti) {
+                title.options[i].selected = true
+            }
+        }
+        //性别默认选中
+        for (let i = 0; i < gender.length; i++) {
+            if (gender.options[i].text === ge) {
+                gender.options[i].selected = true
+            }
+        }
+    });
+</script>
+<script>
+    function toDocInfoModify() {
+        const r = confirm("是否确认修改?")
+        if (r === true) {
+            const form = document.getElementById("docInfoModify")
+            form.action = "/api/admin/modifyDocInfo"
+            form.submit()
+        }
+    }
+</script>
+<!-- Script Start -->
+<script th:src="@{/static/js/jquery.min.js}"></script>
+<script th:src="@{/static/js/popper.min.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/swiper.min.js}"></script>
+<script th:src="@{/static/js/apexcharts.min.js}"></script>
+<script th:src="@{/static/js/control-chart-apexcharts.js}"></script>
+<!-- Page Specific -->
+<script th:src="@{/static/js/nice-select.min.js}"></script>
+<!-- Custom Script -->
+<script th:src="@{/static/js/custom.js}"></script>
+</body>
+
+</html>

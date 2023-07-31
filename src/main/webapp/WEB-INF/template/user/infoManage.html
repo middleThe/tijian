@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+<!--<![endif]-->
+<!-- Begin Head -->
+
+<head>
+    <title>体检预约管理系统-user-个人信息管理</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="MobileOptimized" content="320">
+    <!--Start Style -->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/fonts.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/icofont.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+    <link rel="stylesheet" id="theme-change" type="text/css" href="">
+
+    <style>
+        .buttonbecolor:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+<div class="loader">
+    <div class="spinner">
+        <img th:src="@{/static/picture/loader.gif}" alt="">
+    </div>
+</div>
+<!-- Main Body -->
+<div class="page-wrapper">
+
+    <div th:replace="template.html::title"></div>
+    <div th:replace="template.html::aside"></div>
+    <!-- Container Start -->
+    <div class="page-wrapper">
+        <div class="main-content">
+            <!-- Page Title Start -->
+            <div class="row">
+                <div class="col xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="page-title-wrapper">
+                        <div class="page-title-box">
+                            <h4 class="page-title">个人信息</h4>
+                        </div>
+                        <div class="breadcrumb-list">
+                            <ul>
+                                <li class="breadcrumb-link">
+                                    <a th:href="@{/page/user/index}"><i class="fas fa-home mr-2"></i>首页</a>
+                                </li>
+                                <li class="breadcrumb-link active">信息管理</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Products view Start -->
+            <div class="row">
+                <div class="col-xl-4">
+                    <div class="card">
+                        <grammarly-extension data-grammarly-shadow-root="true"
+                                             style="position: absolute; top: 0px; left: 0px; pointer-events: none;"
+                                             class="cGcvT"></grammarly-extension>
+                        <div class="card-header">
+                            <h4 class="card-title mb-0">密码修改</h4>
+                            <div class="card-options"><a class="card-options-collapse" href="javascript:;"
+                                                         data-bs-toggle="card-collapse" data-bs-original-title=""
+                                                         title=""><i class="fe fe-chevron-up"></i></a><a
+                                    class="card-options-remove" href="javascript:;" data-bs-toggle="card-remove"
+                                    data-bs-original-title="" title=""><i class="fe fe-x"></i></a></div>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" th:action="@{/api/user/updatePassword}" id="updatePW">
+                                <div class="profile-title">
+                                    <div class="media ad-profile2-img">
+                                        <div class="media-body">
+                                            <h5 class="mb-1" th:text="'用户名: '+${user.getUsername()}">MARK JECNO</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">旧密码</label>
+                                    <input class="form-control" type="password" name="oldPassword"
+                                           data-bs-original-title="" title="" id="oldPassword" disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">新密码 <span style="font-size: 10px;color: #D3D3D3"
+                                                                           id="passwordError">（长度大于6，且必须要含有数字、标点和字母）</span></label>
+                                    <input class="form-control" type="password" data-bs-original-title=""
+                                           name="newPassword" id="password" disabled>
+                                </div>
+                                <input type="text" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" hidden>
+                                <div class="form-footer">
+                                    <button type="button" class="effect-btn btn btn-info squer-btn mt-2 mr-2"
+                                            onclick="toEdit()">编辑
+                                    </button>
+                                    <button class="effect-btn btn btn-info squer-btn mt-2 mr-2" type="button" id="PWbtn"
+                                            disabled>提交
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8">
+                    <form class="card" method="post" id="infoForm">
+                        <div class="card-header">
+                            <h4 class="card-title mb-0">个人信息修改</h4>
+                            <div class="card-options"><a class="card-options-collapse" href="javascript:;"
+                                                         data-bs-toggle="card-collapse" data-bs-original-title=""
+                                                         title=""><i class="fe fe-chevron-up"></i></a><a
+                                    class="card-options-remove" href="javascript:;" data-bs-toggle="card-remove"
+                                    data-bs-original-title="" title=""><i class="fe fe-x"></i></a></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">真实姓名 <span id="realNameError"
+                                                                                 style="font-size: 10px"></span>
+                                        </label>
+                                        <input class="form-control" type="text" data-bs-original-title="" title=""
+                                               disabled th:value="${userInfo.getRealname()}" id="realName"
+                                               name="realName">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">邮箱 <span id="emailError"
+                                                                             style="font-size: 10px"></span></label>
+                                        <input class="form-control" type="email" data-bs-original-title="" title=""
+                                               disabled th:value="${userInfo.getEmail()}" id="email" name="email">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">联系方式 <span id="phoneError"
+                                                                                 style="font-size: 10px"></span></label>
+                                        <input class="form-control" type="text" data-bs-original-title="" title=""
+                                               disabled th:value="${userInfo.getPhone()}" id="phone" name="phone">
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="mb-3">
+                                        <label class="form-label">出生日期</label>
+                                        <input name="birthday" type="date" class="form-control btn-square"
+                                               min="1903-01-01" id="birthday" disabled th:value="${date}" max="">
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="mb-3">
+                                        <label class="form-label">性别</label>
+                                        <input th:value="${userInfo.getGender()}" hidden="hidden" type="text"
+                                               id="gender1">
+                                        <select class="form-control btn-square" disabled name="gender" id="gender">
+                                            <option value="男">男</option>
+                                            <option value="女">女</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <input type="text" th:name="${_csrf.getParameterName()}" th:value="${_csrf.token}"
+                                       hidden>
+                            </div>
+                            <button class="btn btn-primary squer-btn" type="button" data-bs-original-title="" title=""
+                                    onclick="toEdit1()">编辑
+                            </button>
+                            <button class="btn btn-primary squer-btn" type="button" data-bs-original-title="" title=""
+                                    disabled id="btn">提交更新
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="ad-footer-btm">
+                <p>Copyright © 2021.Company name All rights reserved.<a target="_blank"
+                                                                        href="https://sc.chinaz.com/moban/">网页模板</a>
+                </p>
+            </div>
+            <form action="/api/share/logout" method="post" id="logout">
+                <input type="text" th:name="${_csrf.getParameterName()}" th:value="${_csrf.token}" hidden>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    let message = [[${message}]];
+    $(function showMessage() {
+        if (message != null) {
+            alert(message)
+            if (message === "密码修改成功,请重新登录") document.getElementById("logout").submit()
+        }
+    })
+</script>
+
+<script th:inline="javascript">
+    //下拉菜单默认选择
+    $(function () {
+        const gender = document.getElementById("gender")
+        const ge = document.getElementById("gender1").value
+        //性别默认选中
+        for (let i = 0; i < gender.length; i++) {
+            if (gender.options[i].text === ge) {
+                gender.options[i].selected = true
+            }
+        }
+    });
+</script>
+<script !src="">
+    function toEdit() {
+        document.getElementById("oldPassword").removeAttribute('disabled')
+        document.getElementById("password").removeAttribute('disabled')
+        document.getElementById("PWbtn").removeAttribute('disabled')
+    }
+
+    function toEdit1() {
+        document.getElementById("realName").removeAttribute('disabled')
+        document.getElementById("email").removeAttribute('disabled')
+        document.getElementById("phone").removeAttribute('disabled')
+        document.getElementById("birthday").removeAttribute('disabled')
+        document.getElementById("gender").removeAttribute('disabled')
+        document.getElementById("btn").removeAttribute('disabled')
+    }
+</script>
+<script>
+    window.onload = function () {
+
+        //左表
+
+        //设置birthday可选的最大日期
+        const date = new Date()
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+        const birthday = document.getElementById("birthday")
+        console.log(formattedDate)
+        birthday.max = formattedDate
+
+
+        //密码验证，失去焦点验证
+        let retVal1 = false;
+
+        const passwordElt = document.getElementById("password");
+        const passwordErrorSpan = document.getElementById("passwordError")
+        const passwordRegExp = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007E]).{6,}$/
+
+
+        //密码验证，失去焦点开始验证
+        passwordElt.onblur = function () {
+            //去除前后空白
+            const password = passwordElt.value.trim();
+            passwordElt.value = password;
+            //password不为空开始验证
+            if (!(passwordElt.value === "")) {
+                //密码格式验证
+                const passwordRetVal = passwordRegExp.test(password);
+                if (passwordRetVal) {
+                    passwordErrorSpan.style.color = "green";
+                    retVal1 = true
+                } else {
+                    passwordErrorSpan.style.color = "red";
+                    retVal1 = false
+                }
+            } else {
+                //密码不能为空
+                passwordErrorSpan.innerHTML = "新密码不能为空"
+                passwordErrorSpan.style.color = "red";
+                retVal1 = false;
+            }
+        }
+
+
+        //密码获得焦点,密码获得焦点，重复密码span内容清空
+        passwordElt.onfocus = function () {
+            //清空非法value,使用index函数，结果等于-1，则不含有该字符串
+            if (passwordErrorSpan.style.color === "red") {
+                //如果passwordErrorSpan不为空串,字符串中含有"不"清空value
+                passwordElt.value = "";
+
+            }
+            //清空span内容
+            passwordErrorSpan.innerText = "长度大于6，且必须要含有数字、标点和字母";
+            passwordErrorSpan.style.color = "#D3D3D3"
+            retVal1 = true
+        }
+
+        const PWbtn = document.getElementById("PWbtn")
+
+        PWbtn.onclick = function () {
+
+            let oldPW = !(document.getElementById("oldPassword").value === "" || document.getElementById("oldPassword").value === null);
+            if (passwordErrorSpan.innerText === "长度大于6，且必须要含有数字、标点和字母") {
+                passwordElt.focus();
+                passwordElt.blur();
+            }
+            if (document.getElementById("oldPassword").value === document.getElementById("password").value) {
+                retVal1 = false
+            }
+            if (oldPW && retVal1) {
+                const formPW = document.getElementById("updatePW");
+                formPW.submit();
+            } else {
+
+                if (document.getElementById("oldPassword").value === document.getElementById("password").value) {
+                    alert("新旧密码不可相同！");
+                } else {
+                    alert("请输入所有正确注册项");
+                }
+
+            }
+        };
+
+
+        //右表
+
+        let ifPass1 = true;
+        let ifPass2 = true;
+        let ifPass3 = true;
+
+
+        const realNameElt = document.getElementById("realName");
+        const realNameErrorSpan = document.getElementById("realNameError");
+        const realNameRegExp = /^(?:[\u4e00-\u9fa5]|[a-zA-Z]){2,}$/
+        realNameElt.onblur = function () {
+            const realname = realNameElt.value.trim();
+            realNameElt.value = realname;
+            if (!(realNameElt.value === "")) {
+                const realnameRetVal = realNameRegExp.test(realname);
+                if (realnameRetVal) {
+                    realNameErrorSpan.style.color = "green";
+                    ifPass1 = true;
+                } else {
+                    realNameErrorSpan.style.color = "red";
+                    ifPass1 = false;
+                }
+            } else {
+                realNameErrorSpan.innerHTML = "姓名不可为空"
+                realNameErrorSpan.style.color = "red";
+                ifPass1 = false;
+            }
+        }
+
+        realNameElt.onfocus = function () {
+            if (realNameErrorSpan.style.color === "red") {
+                realNameElt.value = "";
+            }
+            //清空span内容
+            realNameErrorSpan.innerText = "请输入中文或字母,且长度大于1位";
+            realNameErrorSpan.style.color = "#D3D3D3"
+            ifPass1 = true
+        }
+
+
+        //邮箱地址验证
+        const emailElt = document.getElementById("email");
+        const emailErrorSpan = document.getElementById("emailError")
+        const emailRegExp = /^\w{3,12}@\w{1,5}\.[a-z]{2,3}$/;
+        //失去焦点时开始验证
+        emailElt.onblur = function () {
+            //去除邮箱地址前后空白
+            let email = emailElt.value.trim();
+            emailElt.value = email;
+            let emailRetVal = emailRegExp.test(email);
+            //邮箱地址不为空时开始验证
+            if (!(emailElt.value === "")) {
+                //开始验证
+                if (emailRetVal) {
+                    emailErrorSpan.style.color = "green"
+                    ifPass3 = true
+                } else {
+                    emailErrorSpan.style.color = "red"
+                    ifPass3 = false
+                }
+            } else {
+                emailErrorSpan.innerHTML = "邮箱地址不能为空"
+                emailErrorSpan.style.color = "red"
+                ifPass3 = false
+            }
+        }
+
+
+        //获得焦点时，邮箱格式不正确，则清空非法邮箱value值，并清除span内容
+        emailElt.onfocus = function () {
+            //indexOf方法结果为-1，则表示不含有该字符串
+            if (emailErrorSpan.style.color === "red") {
+                //清空非法value值
+                emailElt.value = "";
+            }
+            //不管地址验证是否成功，在获取焦点后都要讲span中内容删除
+            emailErrorSpan.innerText = "请输入邮箱正确格式";
+            emailErrorSpan.style.color = "#D3D3D3"
+            ifPass3 = true
+        }
+
+
+        const phoneElt = document.getElementById("phone");
+        const phoneErrorSpan = document.getElementById("phoneError");
+        const phoneRegExp = /^1[3456789]\d{9}$/
+        phoneElt.onblur = function () {
+            const phone = phoneElt.value.trim();
+            phoneElt.value = phone;
+            if (!(phoneElt.value === "")) {
+                const phoneRetVal = phoneRegExp.test(phone);
+                if (phoneRetVal) {
+                    phoneErrorSpan.style.color = "green";
+                    ifPass2 = true;
+                } else {
+                    phoneErrorSpan.style.color = "red";
+                    ifPass2 = false
+                }
+            } else {
+                phoneErrorSpan.innerHTML = "电话不可为空"
+                phoneErrorSpan.style.color = "red";
+                ifPass2 = false
+            }
+        }
+
+        phoneElt.onfocus = function () {
+            if (phoneErrorSpan.style.color === "red") {
+                phoneElt.value = "";
+            }
+            //清空span内容
+            phoneErrorSpan.innerText = "请输入正确的电话格式";
+            phoneErrorSpan.style.color = "#D3D3D3"
+            ifPass2 = true
+        }
+
+
+        //获取表单队形
+        const submitElt = document.getElementById("btn");
+        //点击事件发生，进行表单信息提交验证
+        submitElt.onclick = function () {
+
+            if (realNameErrorSpan.innerText === "请输入中文或字母,且长度大于1位") {
+                realNameElt.focus();
+                realNameElt.blur();
+            }
+            if (phoneErrorSpan.innerText === "请输入正确的电话格式") {
+                phoneElt.focus();
+                phoneElt.blur();
+            }
+            //表单提交
+            const userFromElt = document.getElementById("infoForm");
+            if (ifPass1 && ifPass2 && ifPass3) {
+                userFromElt.action = "/api/user/updateInfo";
+                //提交表单
+                userFromElt.submit();
+            } else {
+                alert("请输入所有正确注册项");
+            }
+        }
+
+    }
+</script>
+
+<!-- Script Start -->
+<script th:src="@{/static/js/jquery.min.js}"></script>
+<script th:src="@{/static/js/popper.min.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/swiper.min.js}"></script>
+<script th:src="@{/static/js/apexcharts.min.js}"></script>
+<script th:src="@{/static/js/control-chart-apexcharts.js}"></script>
+<!-- Page Specific -->
+<script th:src="@{/static/js/nice-select.min.js}"></script>
+<!-- Custom Script -->
+<script th:src="@{/static/js/custom.js}"></script>
+</body>
+
+</html>

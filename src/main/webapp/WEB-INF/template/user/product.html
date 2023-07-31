@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--<![endif]-->
+<!-- Begin Head -->
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+<head>
+    <title>体检预约管理系统-user-商品</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="MobileOptimized" content="320">
+    <!--Start Style -->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/fonts.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/range.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/icofont.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+    <link rel="stylesheet" id="theme-change" type="text/css" href="">
+</head>
+<style>
+    .product-text-rs span {
+        text-decoration: none;
+    }
+</style>
+
+<body>
+<div class="loader">
+    <div class="spinner">
+        <img th:src="@{/static/picture/loader.gif}" alt="">
+    </div>
+</div>
+<!-- Main Body -->
+<div class="page-wrapper">
+    <div th:replace="template.html::title"></div>
+    <div th:replace="template.html::aside"></div>
+
+    <!-- Container Start -->
+    <div class="page-wrapper">
+        <div class="main-content">
+            <!-- Page Title Start -->
+            <div class="row">
+                <div class="colxl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="page-title-wrapper">
+                        <div class="page-title-box">
+                            <h4 class="page-title">商品信息</h4>
+                        </div>
+                        <div class="breadcrumb-list">
+                            <ul>
+                                <li class="breadcrumb-link">
+                                    <a th:href="@{/page/user/index}"><i class="fas fa-home mr-2"></i>首页</a>
+                                </li>
+                                <li class="breadcrumb-link active">商品信息</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Table Start -->
+            <div class="row ad-btm-space">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12">
+                    <div class="int-blog-sidebar">
+                        <div class="int-sidebar-box">
+                            <h4>搜索</h4>
+                            <div class="int-search-btn">
+                                <div class="input-group">
+                                    <form th:action="@{/api/user/productULikesearch}" id="likeSearch">
+                                        <input type="text" placeholder="商品名称" name="likeSearch"
+                                               th:value="${likeSearch}" id="goodsName">
+                                        <div class="input-group-append">
+                                            <button type="submit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 30.239 30.239"
+                                                     width="18" height="18">
+                                                    <g>
+                                                        <g>
+                                                            <path d="M20.194,3.46c-4.613-4.613-12.121-4.613-16.734,0c-4.612,4.614-4.612,12.121,0,16.735   c4.108,4.107,10.506,4.547,15.116,1.34c0.097,0.459,0.319,0.897,0.676,1.254l6.718,6.718c0.979,0.977,2.561,0.977,3.535,0   c0.978-0.978,0.978-2.56,0-3.535l-6.718-6.72c-0.355-0.354-0.794-0.577-1.253-0.674C24.743,13.967,24.303,7.57,20.194,3.46z    M18.073,18.074c-3.444,3.444-9.049,3.444-12.492,0c-3.442-3.444-3.442-9.048,0-12.492c3.443-3.443,9.048-3.443,12.492,0   C21.517,9.026,21.517,14.63,18.073,18.074z"
+                                                                  data-original="#000000" class="active-path"
+                                                                  data-old_color="#000000" fill="#ffffff"></path>
+                                                        </g>
+                                                    </g>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="int-sidebar-box recent-blog-one">
+                            <h4>热门</h4>
+                            <div class="int-blog-category-mini">
+                                <ul th:each="TOP:${TOP5List}">
+                                    <li>
+                                        <a th:attr="onclick='getTop(\'' + ${TOP.getGoodsname()} + '\')'">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12px" height="8px">
+                                                <path fill-rule="evenodd" fill=" "
+                                                      d="M0.038,4.720 L6.164,4.710 C6.558,4.710 6.878,4.392 6.878,3.999 L6.878,2.016 L9.967,3.999 L5.777,6.688 C5.445,6.901 5.349,7.342 5.563,7.673 C5.777,8.004 6.219,8.099 6.551,7.886 L11.673,4.597 C11.877,4.466 12.000,4.241 12.000,3.999 C12.000,3.756 11.877,3.531 11.673,3.400 L6.551,0.112 C6.331,-0.030 6.051,-0.040 5.822,0.085 C5.592,0.210 5.449,0.449 5.449,0.710 L5.449,3.286 L0.000,3.286 "></path>
+                                            </svg>
+                                            <span th:text="${TOP.getGoodsname()}"></span>
+                                        </a>
+                                        <span th:text="'￥'+${TOP.getPrice()}" style="color: rgb(17,161,253)">201</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="int-sidebar-box recent-blog-one">
+                            <h4>筛选</h4>
+                            <div class="int-blog-category-mini">
+                                <ul>
+                                    <li style="flex-wrap: wrap;">
+                                        <a th:href="@{/page/user/productUser}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12px" height="8px">
+                                                <path fill-rule="evenodd" fill=" "
+                                                      d="M0.038,4.720 L6.164,4.710 C6.558,4.710 6.878,4.392 6.878,3.999 L6.878,2.016 L9.967,3.999 L5.777,6.688 C5.445,6.901 5.349,7.342 5.563,7.673 C5.777,8.004 6.219,8.099 6.551,7.886 L11.673,4.597 C11.877,4.466 12.000,4.241 12.000,3.999 C12.000,3.756 11.877,3.531 11.673,3.400 L6.551,0.112 C6.331,-0.030 6.051,-0.040 5.822,0.085 C5.592,0.210 5.449,0.449 5.449,0.710 L5.449,3.286 L0.000,3.286 "></path>
+                                            </svg>
+                                            <span>全部</span>
+                                        </a>
+                                        <a th:href="@{/api/user/getGoodsPrSmall200}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12px" height="8px">
+                                                <path fill-rule="evenodd" fill=" "
+                                                      d="M0.038,4.720 L6.164,4.710 C6.558,4.710 6.878,4.392 6.878,3.999 L6.878,2.016 L9.967,3.999 L5.777,6.688 C5.445,6.901 5.349,7.342 5.563,7.673 C5.777,8.004 6.219,8.099 6.551,7.886 L11.673,4.597 C11.877,4.466 12.000,4.241 12.000,3.999 C12.000,3.756 11.877,3.531 11.673,3.400 L6.551,0.112 C6.331,-0.030 6.051,-0.040 5.822,0.085 C5.592,0.210 5.449,0.449 5.449,0.710 L5.449,3.286 L0.000,3.286 "></path>
+                                            </svg>
+                                            <span>￥小于200</span>
+                                        </a>
+                                        <a th:href="@{/api/user/getGoodsPrBig200}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12px" height="8px">
+                                                <path fill-rule="evenodd" fill=" "
+                                                      d="M0.038,4.720 L6.164,4.710 C6.558,4.710 6.878,4.392 6.878,3.999 L6.878,2.016 L9.967,3.999 L5.777,6.688 C5.445,6.901 5.349,7.342 5.563,7.673 C5.777,8.004 6.219,8.099 6.551,7.886 L11.673,4.597 C11.877,4.466 12.000,4.241 12.000,3.999 C12.000,3.756 11.877,3.531 11.673,3.400 L6.551,0.112 C6.331,-0.030 6.051,-0.040 5.822,0.085 C5.592,0.210 5.449,0.449 5.449,0.710 L5.449,3.286 L0.000,3.286 "></path>
+                                            </svg>
+                                            <span>￥大于200</span>
+                                        </a>
+                                        <a th:href="@{/api/user/getGoodsByClasses?classes=检查套餐}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12px" height="8px">
+                                                <path fill-rule="evenodd" fill=" "
+                                                      d="M0.038,4.720 L6.164,4.710 C6.558,4.710 6.878,4.392 6.878,3.999 L6.878,2.016 L9.967,3.999 L5.777,6.688 C5.445,6.901 5.349,7.342 5.563,7.673 C5.777,8.004 6.219,8.099 6.551,7.886 L11.673,4.597 C11.877,4.466 12.000,4.241 12.000,3.999 C12.000,3.756 11.877,3.531 11.673,3.400 L6.551,0.112 C6.331,-0.030 6.051,-0.040 5.822,0.085 C5.592,0.210 5.449,0.449 5.449,0.710 L5.449,3.286 L0.000,3.286 "></path>
+                                            </svg>
+                                            <span>检查套餐</span>
+                                        </a>
+                                        <a th:href="@{/api/user/getGoodsByClasses?classes=单项检查}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12px" height="8px">
+                                                <path fill-rule="evenodd" fill=" "
+                                                      d="M0.038,4.720 L6.164,4.710 C6.558,4.710 6.878,4.392 6.878,3.999 L6.878,2.016 L9.967,3.999 L5.777,6.688 C5.445,6.901 5.349,7.342 5.563,7.673 C5.777,8.004 6.219,8.099 6.551,7.886 L11.673,4.597 C11.877,4.466 12.000,4.241 12.000,3.999 C12.000,3.756 11.877,3.531 11.673,3.400 L6.551,0.112 C6.331,-0.030 6.051,-0.040 5.822,0.085 C5.592,0.210 5.449,0.449 5.449,0.710 L5.449,3.286 L0.000,3.286 "></path>
+                                            </svg>
+                                            <span>单项检查</span>
+                                        </a>
+                                        <a th:href="@{/api/user/getGoodsByPeople?forpeople=女性}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12px" height="8px">
+                                                <path fill-rule="evenodd" fill=" "
+                                                      d="M0.038,4.720 L6.164,4.710 C6.558,4.710 6.878,4.392 6.878,3.999 L6.878,2.016 L9.967,3.999 L5.777,6.688 C5.445,6.901 5.349,7.342 5.563,7.673 C5.777,8.004 6.219,8.099 6.551,7.886 L11.673,4.597 C11.877,4.466 12.000,4.241 12.000,3.999 C12.000,3.756 11.877,3.531 11.673,3.400 L6.551,0.112 C6.331,-0.030 6.051,-0.040 5.822,0.085 C5.592,0.210 5.449,0.449 5.449,0.710 L5.449,3.286 L0.000,3.286 "></path>
+                                            </svg>
+                                            <span>女性</span>
+                                        </a>
+                                        <a th:href="@{/api/user/getGoodsByPeople?forpeople=高危人群}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12px" height="8px">
+                                                <path fill-rule="evenodd" fill=" "
+                                                      d="M0.038,4.720 L6.164,4.710 C6.558,4.710 6.878,4.392 6.878,3.999 L6.878,2.016 L9.967,3.999 L5.777,6.688 C5.445,6.901 5.349,7.342 5.563,7.673 C5.777,8.004 6.219,8.099 6.551,7.886 L11.673,4.597 C11.877,4.466 12.000,4.241 12.000,3.999 C12.000,3.756 11.877,3.531 11.673,3.400 L6.551,0.112 C6.331,-0.030 6.051,-0.040 5.822,0.085 C5.592,0.210 5.449,0.449 5.449,0.710 L5.449,3.286 L0.000,3.286 "></path>
+                                            </svg>
+                                            <span>高危人群</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
+                    <div class="main-product-grid">
+                        <ul>
+                            <li th:each="info:${productList}">
+                                <div class="product-grid">
+                                    <div class="product-item">
+                                        <img th:src="${info.getPic()}" th:alt="${info.getGoodsname()}+'-img'">
+                                        <div class="product-ovr-links">
+                                            <ul>
+                                                <li>
+                                                    <a style="color: white"
+                                                       th:href="@{/page/user/productSingle?gid=}+${info.getGid()}">详情</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product-text-rs">
+                                        <h3 th:text="${info.getGoodsname()}">Occasional Chai</h3>
+                                        <h6 style="margin-bottom: 3px">适宜人群: <span
+                                                th:text="${info.getForpeople()}"></span></h6>
+                                        <h6 style="margin-bottom: 3px">适宜年龄: <span
+                                                th:text="${info.getForage()}"></span></h6>
+                                        <p th:text="'￥'+${info.getPrice()}" style="color: red"></p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="card-footer pt-0">
+                        <form id="pageForm" action="/page/user/productUser">
+                            <span th:if="${likeSearch}"><input type="hidden" name="likeSearch" th:value="${likeSearch}"></span>
+                            <span th:if="${classes}"><input type="hidden" name="classes" th:value="${classes}"></span>
+                            <span th:if="${forpeople}"><input type="hidden" name="forpeople"
+                                                              th:value="${forpeople}"></span>
+                            <input type="hidden" id="page" name="pageNum" value="1">
+                        </form>
+                        <nav class="d-inline-block" style="float: right;">
+                            <ul class="pagination mb-0 ">
+                                <li class="page-item " id="pagePreLi">
+                                    <a class="page-link" tabindex="-1"
+                                       th:attr="onclick='jumpPage(\'' + ${pageInfo.prePage} + '\')'" id="prePage"><i
+                                            class="fas fa-chevron-left"></i></a>
+                                </li>
+                                <li class="page-item" th:each="page,pageStat:${pageInfo.navigatepageNums}"
+                                    th:id="page+${page}">
+                                    <a class="page-link" th:attr="onclick='jumpPage(\'' + ${page} + '\')'"
+                                       th:text="${page}"></a>
+                                </li>
+                                <li class="page-item " id="pageNextLi">
+                                    <a class="page-link "
+                                       th:attr="onclick='jumpPage(\'' + ${pageInfo.nextPage} + '\')'"><i
+                                            class="fas fa-chevron-right "></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="ad-footer-btm">
+                <p>Copyright © 2021.Company name All rights reserved.<a target="_blank"
+                                                                        href="https://sc.chinaz.com/moban/">网页模板</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    let message = [[${message}]]
+    let pageInfo = [[${pageInfo}]]
+    let pageType = [[${pageType}]];
+    $(function showMessage() {
+        //失效页码，第一页的上一页和最后一页的下一页
+        if (pageInfo.pageNum === 1) {
+            // console.log(1)
+            document.getElementById("pagePreLi").className = "page-item disabled"
+        }
+        if (pageInfo.pageNum === pageInfo.pages) {
+            // console.log(2)
+            document.getElementById("pageNextLi").className = "page-item disabled"
+        }
+        //蓝标以选中的页码
+        document.getElementById("page" + pageInfo.pageNum).className = "page-item active"
+
+        //条件查询时不同的转到地址，默认为搜索全部
+        if (pageType === "likeSearch") {
+            document.getElementById("pageForm").action = "/api/user/productULikesearch";
+        } else if (pageType === "small200") {//价格小于200
+            document.getElementById("pageForm").action = "/api/user/getGoodsPrSmall200";
+        } else if (pageType === "big200") {//价格大于200
+            document.getElementById("pageForm").action = "/api/user/getGoodsPrBig200";
+        } else if (pageType === "classes") {//分类
+            document.getElementById("pageForm").action = "/api/user/getGoodsByClasses";
+        } else if (pageType === "forpeople") {
+            document.getElementById("pageForm").action = "/api/user/getGoodsByPeople";
+        }
+        //消息提示
+        if (message != null) {
+            alert(message);
+            window.location.href = "/page/user/productUser";
+        }
+    })
+</script>
+
+<script th:inline="javascript">
+    function getTop(goodsName) {
+        const form = document.getElementById("likeSearch")
+        const input = document.getElementById("goodsName")
+        input.value = goodsName
+        form.submit()
+    }
+
+    function jumpPage(pageNum) {
+        //先修改要访问的页码
+        document.getElementById("page").value = pageNum;
+        //手动提交查询form表单
+        document.getElementById("pageForm").submit();
+    }
+
+    function toSingle(gid) {
+        window.location.href = "/api/user/productSingle?gid=" + gid;
+    }
+</script>
+
+
+<script th:src="@{/static/js/jquery.min.js}"></script>
+<script th:src="@{/static/js/range.js}"></script>
+<script th:src="@{/static/js/popper.min.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/custom.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/docInfo.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin/productAdd.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/template/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/template/index.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/template" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/template/register.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/template" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/template/user/product.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/template/user" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/template/user/tijianHistoryMoreInfo.html" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/template/user" />
+      </map>
+    </option>
+  </component>
+</project>

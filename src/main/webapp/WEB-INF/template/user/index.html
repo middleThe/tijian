@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--<![endif]-->
+<!-- Begin Head -->
+
+<head>
+    <title>体检预约管理系统-user-首页</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="MobileOptimized" content="320">
+    <!--Start Style -->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/fonts.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/icofont.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+    <link rel="stylesheet" id="theme-change" type="text/css" href="">
+
+    <style>
+        .buttonbecolor:hover {
+            color: var(--primary);
+        }
+
+        .ciChu {
+            color: grey;
+        }
+
+        .ciChu:hover {
+            color: rgb(17, 161, 253);
+        }
+
+        p {
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="loader">
+    <div class="spinner">
+        <img th:src="@{/static/picture/loader.gif}" alt="">
+    </div>
+</div>
+<!-- Main Body -->
+<div class="page-wrapper">
+
+    <div th:replace="template.html::title"></div>
+    <div th:replace="template.html::aside"></div>
+    <!-- Container Start -->
+    <div class="page-wrapper">
+        <div class="main-content">
+            <!-- Table Start -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 style="text-align: center;font-size: 30px;">欢迎来到xxx体检管理系统，您好<span
+                                    th:text="${userinfo.getRealname}"></span></h1>
+                            <div class="ad-invoice-title">
+                                <h4 style="font-size: 20px;">个人信息</h4>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h5 class="mb-2" style="color: rgb(17,161,253);font-size: 18px;">基本信息</h5>
+                                    <p>用户名: <span th:text="${user.getUsername()}"></span></p>
+                                    <p>真实姓名: <span th:text="${userinfo.getRealname}"></span></p>
+                                    <p>出生日期: <span th:text="${birthday}"></span></p>
+                                    <p>修改点击-><a th:href="@{/page/user/infoManage}" class="ciChu">此处</a></p>
+                                </div>
+                                <div class="col-sm-6 text-sm-end">
+                                    <h5 class="mb-2" style="color: rgb(17,161,253);font-size: 18px;">联系方式</h5>
+                                    <p>电话: <span th:text="${userinfo.getPhone}"></span></p>
+                                    <p> 电子邮箱: <span th:text="${userinfo.getEmail}"></span></p>
+                                    <p>修改点击-><a th:href="@{/page/user/infoManage}" class="ciChu">此处</a></p>
+                                </div>
+                            </div>
+                            <div class="py-2 mt-3 mb-2">
+                                <h4 class="font-size-15">已购订单</h4>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-styled mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="2" class="text-end">套餐名称</th>
+                                        <th class="text-end" style="text-align: center;">价格</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="info:${goodsNameList}">
+                                        <td colspan="2" class="text-end" th:text="${info}">商品名称</td>
+                                        <td class="text-end" style="text-align: center;"
+                                            th:text="${priceList.get(goodsNameList.indexOf(info))}">价格
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-end">
+                                            <strong>违约次数</strong></td>
+                                        <td class=" text-end" style="text-align: center;"
+                                            th:text="${userinfo.getNocome()}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-end">
+                                            <strong>商城</strong></td>
+                                        <td class=" text-end" style="text-align: center;"><a
+                                                th:href="@{/page/user/productUser}">点击此次</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="ad-footer-btm">
+                <p>Copyright © 2021.Company name All rights reserved.<a target="_blank"
+                                                                        href="https://sc.chinaz.com/moban/">网页模板</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Script Start -->
+<script th:src="@{/static/js/jquery.min.js}"></script>
+<script th:src="@{/static/js/popper.min.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/swiper.min.js}"></script>
+<script th:src="@{/static/js/apexcharts.min.js}"></script>
+<script th:src="@{/static/js/control-chart-apexcharts.js}"></script>
+<!-- Page Specific -->
+<script th:src="@{/static/js/nice-select.min.js}"></script>
+<!-- Custom Script -->
+<script th:src="@{/static/js/custom.js}"></script>
+</body>
+
+</html>

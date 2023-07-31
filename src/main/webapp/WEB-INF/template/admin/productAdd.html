@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--<![endif]-->
+<!-- Begin Head -->
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+
+<head>
+    <title>体检预约管理系统-admin-添加商品</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="MobileOptimized" content="320">
+    <!--Start Style -->
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/fonts.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/icofont.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+    <link rel="stylesheet" id="theme-change" type="text/css" href="">
+    <style>
+        .sss {
+            width: 100%;
+            height: 50px;
+            border: 1px solid var(--border-color);
+            color: var(--main-title-color);
+            border-radius: 5px;
+            padding: 0 20px 0 50px;
+            margin-bottom: 0;
+        }
+
+        .buttonbecolor:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+<div class="loader">
+    <div class="spinner">
+        <img th:src="@{/static/picture/loader.gif}" alt="">
+    </div>
+</div>
+<!-- Main Body -->
+<div class="page-wrapper">
+
+    <div th:replace="template.html::title"></div>
+    <div th:replace="template.html::aside"></div>
+    <!-- Container Start -->
+    <div class="page-wrapper">
+        <div class="main-content">
+            <!-- Page Title Start -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="page-title-wrapper">
+                        <div class="page-title-box">
+                            <h4 class="page-title">添加</h4>
+                        </div>
+                        <div class="breadcrumb-list">
+                            <ul>
+                                <li class="breadcrumb-link">
+                                    <a th:href="@{/page/admin/product}"><i class="fas fa-home mr-2"></i>返回</a>
+                                </li>
+                                <li class="breadcrumb-link active">添加</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- From Start -->
+            <div class="from-wrapper">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>具体事项</h4>
+                                <p class="card-desc">这里填写你要添加的项</p>
+                            </div>
+                            <div class="card-body">
+                                <form class="separate-form" id="addProductInfo" method="post"
+                                      th:action="@{/api/admin/addProduct}" enctype="multipart/form-data">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <h5 class="from-title mb-1">基本信息</h5>
+                                        <div class="row">
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="goodsname" class="col-form-label">套餐姓名
+                                                        <sapn id="goodsNameError"></sapn>
+                                                    </label>
+                                                    <input class="form-control" type="text" id="goodsname"
+                                                           name="goodsname">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="forage" class="col-form-label">适合年龄</label>
+                                                    <input class="form-control" type="text" id="forage" name="forage">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="forpeople" class="col-form-label">适合人群</label>
+                                                    <select class="sss" name="forpeople" id="forpeople">
+                                                        <option value="一般人群" selected>一般人群</option>
+                                                        <option value="高危人群" selected>高危人群</option>
+                                                        <option value="女性">女性</option>
+                                                        <option value="男性">男性</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="price" class="col-form-label">价格<span id="priceType">(请输入小数或整数)</span></label>
+                                                    <input class="form-control" type="text" id="price" name="price">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="classes" class="col-form-label">分类</label>
+                                                    <select class="sss" name="classes" id="classes">
+                                                        <option value="体检套餐" selected>体检套餐</option>
+                                                        <option value="单项检查">单项检查</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="projectinfo" class="col-form-label">基本项目 <span
+                                                            id="projectinfoError"></span></label>
+                                                    <input class="form-control" type="text" id="projectinfo"
+                                                           name="projectinfo">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="mt-4 mb-4">
+                                        <h5 class="from-title mb-1">具体信息</h5>
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="goodsinfo" class="col-form-label">套餐信息</label>
+                                                    <textarea class="form-control" name="goodsinfo"
+                                                              id="goodsinfo"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="attentioninfo" class="col-form-label">注意事项</label>
+                                                    <textarea class="form-control" id="attentioninfo"
+                                                              name="attentioninfo"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <div class="form-group">
+                                                    <label for="file" class="col-form-label">图片:</label>
+                                                    <input type="file" name="file" id="file"
+                                                           style="border: none;height: 30px;width: 170px;">
+                                                    <img id="show" style="width: 200px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="text" th:name="${_csrf.getParameterName()}"
+                                               th:value="${_csrf.token}" hidden>
+                                        <div class="form-group mb-0">
+                                            <input class="btn btn-danger" type="button" value="提交" id="btn">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="ad-footer-btm">
+                <p>Copyright © 2021.Company name All rights reserved.<a target="_blank"
+                                                                        href="https://sc.chinaz.com/moban/">网页模板</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    let message = [[${message}]];
+    $(function showMessage() {
+        if (message != null) {
+            alert(message)
+            window.location.href = "/page/admin/toProductAdd"
+        }
+    })
+</script>
+
+<script>
+    // 获取<input type="file">标签和<img>标签
+    const fileInput = document.getElementById('file');
+    const preview = document.getElementById('show');
+
+    // 给<input type="file">绑定change事件
+    fileInput.addEventListener('change', function () {
+        // 获取用户选择的文件
+        const file = fileInput.files[0];
+        // 创建FileReader对象
+        const reader = new FileReader();
+        // 读取文件内容，并将其转换成Data URL格式
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            // 将Data URL赋值给<img>标签的src属性，实现预览图片的功能
+            preview.src = reader.result;
+        }
+    });
+</script>
+
+<script !src="">
+    window.onload = function () {
+        let re = false
+        let re1 = false
+        let re2 = false
+        const priceElt = document.getElementById("price");
+        const priceError = document.getElementById("priceType");
+        const priceRegExp = /^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/
+
+        //用户名验证开始
+        //用户名验证,失去焦点验证
+        priceElt.onblur = function () {
+            //判断username的value值是否为空
+            //清除前后空白
+            const price = priceElt.value.trim();
+            priceElt.value = price;
+            const priceRetVal = priceRegExp.test(price);
+
+            //username不为空或全为空格开始验证
+            if (!(priceElt.value === "")) {
+                if (!priceRetVal) {
+                    //此处测试正确
+                    //获取用户名后文本对象
+                    priceError.style.color = "red";
+                    re = false
+                } else {
+                    //此处测试正确
+                    priceError.style.color = "black";
+                    re = true
+                }
+            } else {
+                priceError.innerHTML = "(价格不能为空)"
+                priceError.style.color = "red";
+                re = false
+            }
+        }
+
+        //获取焦点，清除span内容
+        priceElt.onfocus = function () {
+            //如果username等于一个或多个空格
+            //清空非法value,使用index函数，结果等于-1，则不含有该字符串
+            if (priceError.style.color === "red") {
+                //如果usernameError不为空串,字符串中含有"不"清空value
+                priceError.value = "";
+            }
+            //清空span内容
+            priceError.innerText = "(请输入小数或整数)";
+            priceError.style.color = "#D3D3D3";
+            re = false
+        }
+
+
+        const projectInfoElt = document.getElementById("projectinfo")
+        const projectInfoSpan = document.getElementById("projectinfoError")
+        projectInfoElt.onblur = function () {
+            if (projectInfoElt.value === "") {
+                projectInfoSpan.innerText = "(项目不可为空)";
+                projectInfoSpan.style.color = "red";
+                re2 = false
+            } else {
+                re2 = true
+                projectInfoSpan.innerText = ""
+            }
+        };
+
+
+        const goodsNameElt = document.getElementById("goodsname")
+        const goodsNameSpan = document.getElementById("goodsNameError")
+        goodsNameElt.onblur = function () {
+            if (goodsNameElt.value === "") {
+                goodsNameSpan.innerText = "(套餐姓名不可为空)";
+                goodsNameSpan.style.color = "red";
+                re1 = false
+            } else {
+                re1 = true
+                goodsNameSpan.innerText = "";
+            }
+        }
+
+
+        const form = document.getElementById("addProductInfo")
+        const btn = document.getElementById("btn")
+        btn.onclick = function () {
+            if (re && re1 && re2) {
+                form.submit()
+            } else alert("请填写信息！")
+        };
+
+    };
+</script>
+
+
+<!-- Script Start -->
+<script th:src="@{/static/js/jquery.min.js}"></script>
+<script th:src="@{/static/js/popper.min.js}"></script>
+<script th:src="@{/static/js/bootstrap.min.js}"></script>
+<script th:src="@{/static/js/swiper.min.js}"></script>
+<script th:src="@{/static/js/apexcharts.min.js}"></script>
+<script th:src="@{/static/js/control-chart-apexcharts.js}"></script>
+<!-- Page Specific -->
+<script th:src="@{/static/js/nice-select.min.js}"></script>
+<!-- Custom Script -->
+<script th:src="@{/static/js/custom.js}"></script>
+</body>
+
+</html>
