@@ -3,7 +3,7 @@
 
 数据库在sql文件夹
 
-tomcat8.5+spring security +thymeleaf+ssm
+tomcat8.5+spring security +thymeleaf+ssm+mysql8.0
 
 毕设
 
